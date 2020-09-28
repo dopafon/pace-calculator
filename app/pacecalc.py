@@ -1,6 +1,14 @@
 from datetime import time
 import datetime
 
+def get_bikepace_by_time(distance_metres, target_time_seconds):
+    kmh = distance_metres / target_time_seconds * 3.6
+    return kmh
+'''
+def get_biketime_by_pace(pace_kmh, distance_metres):
+    secs_per_km = 
+    m_per_min = pace_kmh * distance_metres / 60
+'''
 def get_swimpace_by_time(distance_metres, target_time_seconds):
     """return pace as time string"""
     sec_per_100 = target_time_seconds / distance_metres * 100

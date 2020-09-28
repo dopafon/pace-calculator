@@ -1,19 +1,28 @@
-{% extends 'bootstrap/base.html' %}
-    {% block title %}
-        Triathlon pace calculator
-    {% endblock %}
-    {% block navbar %}
-        <nav class="navbar navbar-default">
-            <div><a href="/swim">Swim</a></div>
 
-        </nav>
+    {% block styles %}
+    <!-- Bootstrap CSS -->
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+      
+    {% block navbar %}
+        <ul class="nav nav-pills" style="background-color: #e3f2fd;">
+            <li class="nav-item ">
+                <a class="nav-link" href="/swim">Swim</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bike">Bike</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Run</a>
+            </li>
+        </ul>
     {% endblock %}
     {% block content %}
-        <div class="container">
+        <div class="container pt-4">
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-info" role="alert">{{ message }}</div>
+                <div class="alert alert-danger" role="alert">{{ message }}</div>
             {% endfor %}
             {% endif %}
             {% endwith %}
