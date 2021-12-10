@@ -1,7 +1,7 @@
-from app import app
+from webapp import app
 from flask import render_template, flash, redirect, request
-from app.forms import SwimForm, BikeForm
-from app.pacecalc import *
+from webapp.forms import SwimForm, BikeForm
+from webapp.pacecalc import *
 
 def validate_pace_or_time(mode):
     if mode == 'swim':

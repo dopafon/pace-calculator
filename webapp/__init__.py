@@ -5,4 +5,4 @@ app = Flask(__name__, static_url_path='/static')
 app.config['SECRET_KEY'] = 'you-will-never-guess'
 bootstrap = Bootstrap(app)
 
-from app import routes
+from webapp import routes
