@@ -38,8 +38,19 @@ def create_swimsplits(time_seconds, distance_metres):
     t = pace_secs
     split = 100
     while t <= time_seconds:
-        #swimsplits.append(convert_secs_to_time(t))
         swimsplits[split] = convert_secs_to_time(t)
         t += pace_secs
         split += 100
     return swimsplits
+
+def create_bikesplits(time_seconds, distance_kilometres):
+    """Return Dict of bikesplit times as time strings per 30km"""
+    splits = {}
+    time_per_split_secs = time_seconds / distance_kilometres * 30
+    t = time_per_split_secs
+    split = 30
+    while t <= time_seconds:
+        splits[split] = convert_secs_to_time(t)
+        t += time_per_split_secs
+        split += 30
+    return splits

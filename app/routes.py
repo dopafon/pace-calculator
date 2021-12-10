@@ -84,17 +84,14 @@ def bike():
             pace_time_str = form.bike_pace_time.data
             pace_kmh = float(pace_time_str.replace(',','.'))
             biketime = get_biketime_by_pace(pace_kmh, form.distance.data)
-            '''
+            
             if form.showsplits.data is True:
                 bikesplits = create_bikesplits(get_secs_from_time(biketime), form.distance.data)            
                 showsplits = True
             else:
                 bikesplits = ''
                 showsplits = False
-            '''
-            #debug
-            bikesplits = ''
-            showsplits = False
+
             return render_template('bike.html', title='Swim',
                 form=form,
                 biketime=biketime,
@@ -107,17 +104,14 @@ def bike():
                 race_time_secs = get_secs_from_time(race_time_str)
                 distance = form.distance.data * 1000
                 pacetime = round(get_bikepace_by_time(distance, race_time_secs), 2)
-                # debug
-                bikesplits = ''
-                showsplits = False
-                '''
+                
                 if form.showsplits.data is True:
                     bikesplits = bikesplits = create_bikesplits(race_time_secs, form.distance.data)
                     showsplits = True
                 else:
                     bikesplits = ''
                     showsplits = False
-                '''
+                
                 return render_template('bike.html', title='Bike', 
                     form=form,
                     biketime=convert_secs_to_time(race_time_secs),

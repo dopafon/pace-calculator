@@ -10,17 +10,15 @@ class SwimForm(FlaskForm):
         else:
             return True
 
-
-
     swim_pace_time = StringField('Your swim pace per 100m', validators=[Optional()], description='HH:MM:SS')
     swim_race_time = StringField('Your swim time (total)', validators=[Optional()], description='HH:MM:SS')
     distance = IntegerField('Race distance in metres', validators=[DataRequired()])
-    showsplits = BooleanField('Show splits')
+    showsplits = BooleanField('Show splits (100m)')
     submit = SubmitField('Calculate')
 
 class BikeForm(FlaskForm):
     bike_pace_time = StringField('Your bike pace in km/h', validators=[Optional()], description='km/h')
     bike_race_time = StringField('Your bike time (total)', validators=[Optional()], description='HH:MM:SS')
     distance = IntegerField('Race distance in kilometres', validators=[DataRequired()])
-    showsplits = BooleanField('Show splits')
+    showsplits = BooleanField('Show splits (30km)')
     submit = SubmitField('Calculate')
