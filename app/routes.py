@@ -1,7 +1,6 @@
 from app import app
 from flask import render_template, flash, redirect, request
 from app.forms import SwimForm, BikeForm
-#from app.pacecalc import get_swimpace_by_time, get_time_by_pace, get_secs_from_time, convert_secs_to_time, create_swimsplits
 from app.pacecalc import *
 
 def validate_pace_or_time(mode):
@@ -12,6 +11,13 @@ def validate_pace_or_time(mode):
             flash('At least one of race or pace time must be set', 'error')
         elif form.swim_pace_time.data and form.swim_race_time.data:
             flash('Please specify ONLY "pace" OR "time"', 'error')
+    if mode == 'bike':
+        form = BikeForm()
+        form.validate()
+        if not form.bike_pace_time.data and not form.bike_race_time.data:
+            flash('At least one of race or pace time must be set', 'error')
+        elif form.bike_pace_time.data and form.bike_race_time.data:
+            flash('Please specify ONLY "pace" OR "time"', 'error')
     else:
         return True
 
@@ -19,7 +25,8 @@ def validate_pace_or_time(mode):
         
 @app.route('/', methods=['GET'])
 def homepage():
-    return redirect('/swim')
+    #return redirect('/swim')
+    return render_template('home.html')
 
 @app.route('/swim', methods=['GET', 'POST'])
 def swim():
@@ -75,8 +82,8 @@ def bike():
         if form.bike_pace_time.data != '':
             # get seconds from timestring in form
             pace_time_str = form.bike_pace_time.data
-            pace_secs = get_secs_from_time(pace_time_str)
-            biketime = get_time_by_pace(pace_secs, form.distance.data)
+            pace_kmh = float(pace_time_str.replace(',','.'))
+            biketime = get_biketime_by_pace(pace_kmh, form.distance.data)
             '''
             if form.showsplits.data is True:
                 bikesplits = create_bikesplits(get_secs_from_time(biketime), form.distance.data)            
@@ -91,7 +98,7 @@ def bike():
             return render_template('bike.html', title='Swim',
                 form=form,
                 biketime=biketime,
-                bikepace=convert_secs_to_time(pace_secs),
+                bikepace=pace_kmh,
                 bikesplits=bikesplits,
                 showsplits=showsplits)
         elif form.bike_race_time.data is not None:
